@@ -30,38 +30,39 @@ import "./GMPGame.css"
 const GMPGame = () => {
   // Define card types with image references
   const goodPracticesCards = [
-    { id: 1, name: 'SAS DE TRANSFERT', value: 2, img: sasTransfertImg },
-    { id: 2, name: 'RÉPARATION ET ENTRETIEN NETTOYAGE', value: 1, img: reparationImg },
-    { id: 3, name: 'PERSONNEL BIEN DÉFINI', value: 1, img: personnelImg },
-    { id: 4, name: 'Traitement de l\'air et de la ventilation', value: 1, img: traitementAirImg },
-    { id: 5, name: 'Stockage', value: 1, img: stockageImg },
-    { id: 6, name: 'Zones de repos/restauration séparées', value: 2, img: zonesReposImg },
-    { id: 7, name: 'Matériels et équipements', value: 1, img: materielsImg },
-    { id: 8, name: 'Implantation et environnement', value: 1, img: implantationImg },
-    { id: 9, name: 'Mélange de Flux', value: 2, img: melangeFluxImg }
+    { id: 1, match:10, name: 'Sas de transfert', value: 2, img: sasTransfertImg },
+    { id: 2, match:11, name: 'Nettoyage', value: 2, img: nettoyageImg },
+    { id: 3, match:12, name: 'Personnel bien défini', value: 1, img: personnelImg },
+    { id: 4, match:13, name: 'Réparation et entretien', value: 1, img: reparationImg },
+    { id: 5, match:14, name: "Traitement de l'air et de la ventilation", value: 1, img: traitementAirImg },
+    { id: 6, match:15, name: 'Stockage', value: 1, img: stockageImg },
+    { id: 7, match:16, name: 'Zones de repos/restauration séparées', value: 2, img: zonesReposImg },
+    { id: 8, match:17, name: 'Enregistrement de température', value: 1, img: materielsImg },
+    { id: 9, match:18, name: 'Prévention parasitaire', value: 1, img: implantationImg },
   ];
 
   const dangerCards = [
-    { id: 10, name: 'ENTRÉE INSECTE ET ANIMAUX', value: -2, img: insectesImg },
-    { id: 11, name: 'HUMIDITÉ', value: -1, img: humiditeImg },
-    { id: 12, name: 'MAUVAIS ÉCLAIRAGE', value: -1, img: eclairageImg },
-    { id: 13, name: 'Poussière en suspension', value: -2, img: poussiereImg },
-    { id: 14, name: 'Prolifération microbienne', value: -1, img: proliferationImg },
-    { id: 15, name: 'Contamination croisée', value: -1, img: contaminationImg },
-    { id: 16, name: 'Fuite d\'air', value: -1, img: fuiteAirImg },
-    { id: 17, name: 'Intrusion nuisible', value: -2, img: intrusionImg }
+    { id: 10, match:1, name: 'Contamination croisée', value: -1, img: contaminationImg },
+    { id: 11, match:2, name: 'Poussière en suspension', value: -2, img: poussiereImg },
+    { id: 12, match:3, name: 'Mélange de flux', value: -2, img: melangeFluxImg },
+    { id: 13, match:4, name: 'Mauvais éclairage', value: -1, img: eclairageImg },
+    { id: 14, match:5, name: 'Humidité', value: -1, img: humiditeImg },
+    { id: 15, match:6, name: "Risque d'erreur de lot", value: -1, img: fuiteAirImg },
+    { id: 16, match:7, name: 'Prolifération microbienne', value: -1, img: proliferationImg },
+    { id: 17, match:8, name: 'Enregistrement non contrôlée', value: -2, img: intrusionImg },
+    { id: 18, match:9, name: 'Entrée insecte et animaux', value: -2, img: insectesImg },
   ];
 
   const problemCards = [
-    { id: 18, name: 'INSPECTION SURPRISE', img: inspectionImg },
-    { id: 19, name: 'CONFLIT D\'ÉQUIPE', img: conflitImg },
-    { id: 20, name: 'VOL DE MATÉRIEL', img: volImg }
+    { id: 19, name: 'Inspection surprise', img: inspectionImg },
+    { id: 20, name: "Conflit d'équipe", img: conflitImg },
+    { id: 21, name: 'Vol de matériel', img: volImg }
   ];
 
   const jokerCards = [
-    { id: 21, name: 'JOKER', img: jokerImg },
-    { id: 22, name: 'JOKER', img: jokerImg },
-    { id: 23, name: 'JOKER', img: jokerImg }
+    { id: 22, name: 'Joker', img: jokerImg },
+    { id: 23, name: 'Joker', img: jokerImg },
+    { id: 24, name: 'Joker', img: jokerImg }
   ];
 
   // Game state
@@ -121,7 +122,7 @@ const GMPGame = () => {
     setSelectedCard(null);
     setSelectedDangerCard(null);
     setTargetPlayer(null);
-    setActionLog([{ text: 'Game started!', timestamp: new Date() }]);
+    setActionLog([{ text: 'Le jeu a commencé', timestamp: new Date() }]);
   };
 
   // Add to action log
@@ -144,7 +145,7 @@ const GMPGame = () => {
     
     setDeck(newDeck);
     setPlayers(newPlayers);
-    addToLog(`${players[currentPlayerIndex].name} drew a card`);
+    addToLog(`${players[currentPlayerIndex].name} a pioché une carte`);
   };
 
   // Start player turn (draw card if not skipping)
@@ -183,7 +184,7 @@ const GMPGame = () => {
     const card = selectedCard.card;
     
     if (currentPlayer.skipTurn) {
-      addToLog(`${currentPlayer.name} tried to play but must skip turn!`);
+      addToLog(`${currentPlayer.name} a essayé de jouer mais doit passer son tour !`);
       setSelectedCard(null);
       setSelectedDangerCard(null);
       return;
@@ -191,11 +192,13 @@ const GMPGame = () => {
     
     // Handle different card types
     if (goodPracticesCards.some(c => c.id === card.id)) {
-      // Good practice card - can be used to eliminate danger
-      const dangerIndex = currentPlayer.hand.findIndex(c => 
-        dangerCards.some(d => d.id === c.id)
-      );
+      // Good practice card - can be used to eliminate its corresponding danger card
+      const matchingGoodCard = goodPracticesCards.find(c => c.id === card.id);
+      const matchingDangerId = matchingGoodCard?.match;
       
+      // Find index of matching danger card in player's hand
+      const dangerIndex = currentPlayer.hand.findIndex(c => c.id === matchingDangerId);
+
       if (dangerIndex >= 0) {
         // Eliminate danger and gain +3 points
         const newPlayers = [...players];
@@ -203,9 +206,9 @@ const GMPGame = () => {
         newPlayers[currentPlayerIndex].hand.splice(selectedCard.index, 1);
         newPlayers[currentPlayerIndex].score += 3;
         setPlayers(newPlayers);
-        addToLog(`${currentPlayer.name} used ${card.name} to eliminate a danger and gained +3 points!`);
+        addToLog(`${currentPlayer.name} a utilisé ${card.name} pour éliminer un danger et a gagné +3 points !`);
       } else {
-        addToLog(`${currentPlayer.name} has no danger cards to eliminate with ${card.name}`);
+        addToLog(`${currentPlayer.name} n'a pas de carte danger à éliminer avec ${card.name}`);
         setSelectedCard(null);
         return;
       }
@@ -218,7 +221,7 @@ const GMPGame = () => {
       if (dangerCardsInHand.length > 0) {
         if (!selectedDangerCard) {
           // Show danger card selection if not already selected
-          addToLog(`${currentPlayer.name} must select a danger card to eliminate with JOKER`);
+          addToLog(`${currentPlayer.name} doit sélectionner une carte danger à éliminer avec le joker`);
           return;
         }
         
@@ -227,13 +230,13 @@ const GMPGame = () => {
           const newPlayers = [...players];
           newPlayers[currentPlayerIndex].hand.splice(dangerIndex, 1);
           newPlayers[currentPlayerIndex].hand.splice(selectedCard.index, 1);
-          newPlayers[currentPlayerIndex].score += 3;
+          // newPlayers[currentPlayerIndex].score += 3;
           setPlayers(newPlayers);
-          addToLog(`${currentPlayer.name} used a JOKER to eliminate ${selectedDangerCard.name} and gained +3 points!`);
+          addToLog(`${currentPlayer.name} a utilisé un joker pour éliminer ${selectedDangerCard.name}`);
           setSelectedDangerCard(null);
         }
       } else {
-        addToLog(`${currentPlayer.name} has no danger cards to eliminate with JOKER`);
+        addToLog(`${currentPlayer.name} n'a pas de carte danger à éliminer avec le joker`);
         setSelectedCard(null);
         setSelectedDangerCard(null);
         return;
@@ -247,10 +250,10 @@ const GMPGame = () => {
       newPlayers[currentPlayerIndex].hand.splice(selectedCard.index, 1);
       newPlayers[otherPlayerIndex].skipTurn = true;
       setPlayers(newPlayers);
-      addToLog(`${currentPlayer.name} played ${card.name} on ${targetPlayer.name} who must skip their next turn!`);
+      addToLog(`${currentPlayer.name} a joué ${card.name} sur ${targetPlayer.name} qui doit passer son prochain tour !`);
     } else {
       // Danger card or other - can't be played directly
-      addToLog(`${currentPlayer.name} cannot play ${card.name} directly`);
+      addToLog(`${currentPlayer.name} ne peut pas jouer ${card.name} directement`);
       setSelectedCard(null);
       setSelectedDangerCard(null);
       return;
@@ -270,7 +273,7 @@ const GMPGame = () => {
     let nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
     while (newPlayers[nextPlayerIndex].skipTurn) {
       newPlayers[nextPlayerIndex].skipTurn = false;
-      addToLog(`${newPlayers[nextPlayerIndex].name}'s skip turn was consumed`);
+      addToLog(`Le tour sauté de ${newPlayers[nextPlayerIndex].name} a été consommé`);
       nextPlayerIndex = (nextPlayerIndex + 1) % players.length;
     }
     
@@ -305,12 +308,12 @@ const GMPGame = () => {
     
     setPlayers(newPlayers);
     setGameOver(true);
-    addToLog(`Game over! Final scores: ${newPlayers.map(p => `${p.name}: ${p.score}`).join(', ')}`);
+    addToLog(`Partie terminée ! Scores finaux : ${newPlayers.map(p => `${p.name}: ${p.score}`).join(', ')}`);
   };
 
   // Skip turn
   const skipTurn = () => {
-    addToLog(`${players[currentPlayerIndex].name} skips their turn`);
+    addToLog(`${players[currentPlayerIndex].name} passe son tour`);
     endTurn();
   };
 
@@ -323,26 +326,26 @@ const GMPGame = () => {
 
   return (
     <div className="gmp-game">
-      <h1>Good Manufacturing Practices (GMP) Card Game</h1>
-      <h2>Pharmaceutical Quality Management Simulation</h2>
+      <h1>Jeu de Cartes Bonnes Pratiques de Fabrication (BPF)</h1>
+      <h2>Simulation de Gestion de la Qualité Pharmaceutique</h2>
       
       {!gameStarted ? (
         <div className="game-start">
           <div className="game-description">
-            <p>Quality managers compete to implement best practices while avoiding dangers in a pharmaceutical facility.</p>
-            <h3>Game Rules:</h3>
+            <p>Les responsables qualité s'affrontent pour mettre en œuvre les meilleures pratiques tout en évitant les dangers dans une installation pharmaceutique.</p>
+            <h3>Règles du jeu :</h3>
             <ul>
-              <li>Use Good Practice cards to eliminate Danger cards (+3 points)</li>
-              <li>Jokers can eliminate any Danger card</li>
-              <li>Problem cards make opponents skip their turn</li>
-              <li>Game ends when deck is empty</li>
-              <li>Final score = card values + elimination bonuses</li>
+              <li>Utilisez les cartes Bonne Pratique pour éliminer les cartes Danger (+3 points)</li>
+              <li>Les Jokers peuvent éliminer n'importe quelle carte Danger</li>
+              <li>Les cartes Problème font passer le tour à un adversaire</li>
+              <li>La partie se termine lorsque le paquet est vide</li>
+              <li>Score final = valeurs des cartes + bonus d'élimination</li>
             </ul>
           </div>
           
           <div className="player-setup">
             <div className="num-players">
-              <label>Number of Players (2-4):</label>
+              <label>Nombre de joueurs (2-4) :</label>
               <select 
                 value={numPlayers} 
                 onChange={(e) => setNumPlayers(parseInt(e.target.value))}
@@ -356,7 +359,7 @@ const GMPGame = () => {
             <div className="player-names">
               {Array.from({ length: numPlayers }).map((_, i) => (
                 <div key={i} className="player-name-input">
-                  <label>Player {i + 1} Name:</label>
+                  <label>Nom du Joueur {i + 1} :</label>
                   <input
                     type="text"
                     value={playerNames[i] || ''}
@@ -367,14 +370,14 @@ const GMPGame = () => {
               ))}
             </div>
             
-            <button onClick={initializeGame}>Start Game</button>
+            <button onClick={initializeGame}>Démarrer la partie</button>
           </div>
         </div>
       ) : (
         <div className="game-board">
           <div className="game-info">
-            <p>Cards remaining: {deck.length} | Current turn: {players[currentPlayerIndex].name}</p>
-            {gameOver && <h2 className="game-over">Game Over!</h2>}
+            <p>Cartes restantes : {deck.length} | Tour actuel : {players[currentPlayerIndex].name}</p>
+            {gameOver && <h2 className="game-over">Partie terminée !</h2>}
           </div>
           
           <div className="players-container">
@@ -385,11 +388,11 @@ const GMPGame = () => {
                 onClick={() => selectedCard?.card && problemCards.some(p => p.id === selectedCard.card.id) && setTargetPlayer(player)}
               >
                 <h3>{player.name}</h3>
-                <p className="score">Score: {player.score}</p>
-                {player.skipTurn && <p className="skip-turn">Must skip turn!</p>}
+                <p className="score">Score : {player.score}</p>
+                {player.skipTurn && <p className="skip-turn">Doit passer son tour !</p>}
                 
                 <div className="hand">
-                  <h4>Hand ({player.hand.length} cards):</h4>
+                  <h4>Main ({player.hand.length} cartes) :</h4>
                   <div className="cards">
                     {player.hand.map((card, cardIndex) => (
                       <div 
@@ -420,12 +423,12 @@ const GMPGame = () => {
           
           {selectedCard && (
             <div className="selected-card-actions">
-              <h3>Selected: {selectedCard.card.name}</h3>
+              <h3>Sélectionné : {selectedCard.card.name}</h3>
               
               {/* Danger card selection for Joker */}
               {jokerCards.some(j => j.id === selectedCard.card.id) && (
                 <div className="danger-selection">
-                  <p>Select Danger Card to Eliminate:</p>
+                  <p>Sélectionnez une carte Danger à éliminer :</p>
                   <div className="danger-options">
                     {players[currentPlayerIndex].hand
                       .filter(card => dangerCards.some(d => d.id === card.id))
@@ -449,7 +452,7 @@ const GMPGame = () => {
               {/* Target player selection for problem cards */}
               {targetPlayer && (
                 <div className="target-selection">
-                  <p>Target Player:</p>
+                  <p>Joueur ciblé :</p>
                   <div className="target-options">
                     {players.filter(p => p.id !== players[currentPlayerIndex].id).map(player => (
                       <button
@@ -468,13 +471,13 @@ const GMPGame = () => {
                 onClick={playSelectedCard}
                 disabled={jokerCards.some(j => j.id === selectedCard.card.id) && !selectedDangerCard}
               >
-                Play This Card
+                Jouer cette carte
               </button>
               <button onClick={() => {
                 setSelectedCard(null);
                 setSelectedDangerCard(null);
               }}>
-                Cancel
+                Annuler
               </button>
             </div>
           )}
@@ -482,25 +485,25 @@ const GMPGame = () => {
           {!gameOver && !selectedCard && (
             <div className="game-controls">
               <button onClick={skipTurn}>
-                Skip Turn
+                Passer le tour
               </button>
             </div>
           )}
           
           {gameOver && (
             <div className="game-results">
-              <h2>Final Scores:</h2>
+              <h2>Scores finaux :</h2>
               {players.map(player => (
                 <p key={player.id} className="final-score">
-                  {player.name}: <strong>{player.score}</strong> points
+                  {player.name} : <strong>{player.score}</strong> points
                 </p>
               ))}
-              <button onClick={initializeGame}>Play Again</button>
+              <button onClick={initializeGame}>Rejouer</button>
             </div>
           )}
           
           <div className="action-log">
-            <h3>Game Log:</h3>
+            <h3>Historique du jeu :</h3>
             <div className="log-entries">
               {actionLog.slice().reverse().map((entry, index) => (
                 <p key={index} className="log-entry">
