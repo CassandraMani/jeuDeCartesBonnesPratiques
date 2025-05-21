@@ -8,8 +8,6 @@ import personnelImg from './cards/personnel.jpg';
 import traitementAirImg from './cards/traitement_air.jpg';
 import stockageImg from './cards/stockage.jpg';
 import zonesReposImg from './cards/zones_repos.jpg';
-import materielsImg from './cards/materiels.jpg';
-import implantationImg from './cards/implantation.jpg';
 import melangeFluxImg from './cards/melange_flux.jpg';
 import insectesImg from './cards/insectes.jpg';
 import humiditeImg from './cards/humidite.jpg';
@@ -17,12 +15,16 @@ import eclairageImg from './cards/eclairage.jpg';
 import poussiereImg from './cards/poussiere.jpg';
 import proliferationImg from './cards/proliferation.jpg';
 import contaminationImg from './cards/contamination.jpg';
-import fuiteAirImg from './cards/fuite_air.jpg';
-import intrusionImg from './cards/intrusion.jpg';
 import inspectionImg from './cards/inspection.jpg';
 import conflitImg from './cards/conflit.jpg';
 import volImg from './cards/vol.jpg';
 import jokerImg from './cards/joker.jpg';
+import enregistrementNonControlImg from './cards/enregistrement_non_controle.jpg';
+import enregistrementTemperatureImg from './cards/enregistrement_temp.jpg';
+import preventionParasitaireImg from './cards/prevention_parasit.jpg';
+import riskImg from './cards/risque_erreur_lot.jpg';
+
+
 
 //Importing the css
 import "./GMPGame.css"
@@ -30,39 +32,67 @@ import "./GMPGame.css"
 const GMPGame = () => {
   // Define card types with image references
   const goodPracticesCards = [
-    { id: 1, match:10, name: 'Sas de transfert', value: 2, img: sasTransfertImg },
-    { id: 2, match:11, name: 'Nettoyage', value: 2, img: nettoyageImg },
-    { id: 3, match:12, name: 'Personnel bien défini', value: 1, img: personnelImg },
-    { id: 4, match:13, name: 'Réparation et entretien', value: 1, img: reparationImg },
-    { id: 5, match:14, name: "Traitement de l'air et de la ventilation", value: 1, img: traitementAirImg },
-    { id: 6, match:15, name: 'Stockage', value: 1, img: stockageImg },
-    { id: 7, match:16, name: 'Zones de repos/restauration séparées', value: 2, img: zonesReposImg },
-    { id: 8, match:17, name: 'Enregistrement de température', value: 1, img: materielsImg },
-    { id: 9, match:18, name: 'Prévention parasitaire', value: 1, img: implantationImg },
+    { id: 1, match:[101,110], name: 'Sas de transfert', value: 2, img: sasTransfertImg },
+    { id: 2, match:[102,111], name: 'Nettoyage', value: 2, img: nettoyageImg },
+    { id: 3, match:[103,112], name: 'Personnel bien défini', value: 1, img: personnelImg },
+    { id: 4, match:[104,113], name: 'Réparation et entretien', value: 1, img: reparationImg },
+    { id: 5, match:[105,114], name: "Traitement de l'air et de la ventilation", value: 1, img: traitementAirImg },
+    { id: 6, match:[106,115], name: 'Stockage', value: 1, img: stockageImg },
+    { id: 7, match:[107,116], name: 'Zones de repos/restauration séparées', value: 2, img: zonesReposImg },
+    { id: 8, match:[108,117], name: 'Enregistrement de température', value: 1, img: enregistrementTemperatureImg },
+    { id: 9, match:[109,118], name: 'Prévention parasitaire', value: 1, img: preventionParasitaireImg },
+
+    { id: 10, match:[101,110], name: 'Sas de transfert', value: 2, img: sasTransfertImg },
+    { id: 11, match:[102,111], name: 'Nettoyage', value: 2, img: nettoyageImg },
+    { id: 12, match:[103,112], name: 'Personnel bien défini', value: 1, img: personnelImg },
+    { id: 13, match:[104,113], name: 'Réparation et entretien', value: 1, img: reparationImg },
+    { id: 14, match:[105,114], name: "Traitement de l'air et de la ventilation", value: 1, img: traitementAirImg },
+    { id: 15, match:[106,115], name: 'Stockage', value: 1, img: stockageImg },
+    { id: 16, match:[107,116], name: 'Zones de repos/restauration séparées', value: 2, img: zonesReposImg },
+    { id: 17, match:[108,117], name: 'Enregistrement de température', value: 1, img: enregistrementTemperatureImg },
+    { id: 18, match:[109,118], name: 'Prévention parasitaire', value: 1, img: preventionParasitaireImg },
+    
   ];
 
   const dangerCards = [
-    { id: 10, match:1, name: 'Contamination croisée', value: -1, img: contaminationImg },
-    { id: 11, match:2, name: 'Poussière en suspension', value: -2, img: poussiereImg },
-    { id: 12, match:3, name: 'Mélange de flux', value: -2, img: melangeFluxImg },
-    { id: 13, match:4, name: 'Mauvais éclairage', value: -1, img: eclairageImg },
-    { id: 14, match:5, name: 'Humidité', value: -1, img: humiditeImg },
-    { id: 15, match:6, name: "Risque d'erreur de lot", value: -1, img: fuiteAirImg },
-    { id: 16, match:7, name: 'Prolifération microbienne', value: -1, img: proliferationImg },
-    { id: 17, match:8, name: 'Enregistrement non contrôlée', value: -2, img: intrusionImg },
-    { id: 18, match:9, name: 'Entrée insecte et animaux', value: -2, img: insectesImg },
+    { id: 101, match:[1,10], name: 'Contamination croisée', value: -1, img: contaminationImg },
+    { id: 102, match:[2,11], name: 'Poussière en suspension', value: -2, img: poussiereImg },
+    { id: 103, match:[3,12], name: 'Mélange de flux', value: -2, img: melangeFluxImg },
+    { id: 104, match:[4,13], name: 'Mauvais éclairage', value: -1, img: eclairageImg },
+    { id: 105, match:[5,14], name: 'Humidité', value: -1, img: humiditeImg },
+    { id: 106, match:[6,15], name: "Risque d'erreur de lot", value: -1, img: riskImg },
+    { id: 107, match:[7,16], name: 'Prolifération microbienne', value: -1, img: proliferationImg },
+    { id: 108, match:[8,17], name: 'Enregistrement non contrôlé', value: -2, img: enregistrementNonControlImg },
+    { id: 109, match:[9,18], name: 'Entrée insecte et animaux', value: -2, img: insectesImg },
+
+    { id: 110, match:[1,10], name: 'Contamination croisée', value: -1, img: contaminationImg },
+    { id: 111, match:[2,11], name: 'Poussière en suspension', value: -2, img: poussiereImg },
+    { id: 112, match:[3,12], name: 'Mélange de flux', value: -2, img: melangeFluxImg },
+    { id: 113, match:[4,13], name: 'Mauvais éclairage', value: -1, img: eclairageImg },
+    { id: 114, match:[5,14], name: 'Humidité', value: -1, img: humiditeImg },
+    { id: 115, match:[6,15], name: "Risque d'erreur de lot", value: -1, img: riskImg },
+    { id: 116, match:[7,16], name: 'Prolifération microbienne', value: -1, img: proliferationImg },
+    { id: 117, match:[8,17], name: 'Enregistrement non contrôlé', value: -2, img: enregistrementNonControlImg },
+    { id: 118, match:[9,18], name: 'Entrée insecte et animaux', value: -2, img: insectesImg },
   ];
 
   const problemCards = [
-    { id: 19, name: 'Inspection surprise', img: inspectionImg },
-    { id: 20, name: "Conflit d'équipe", img: conflitImg },
-    { id: 21, name: 'Vol de matériel', img: volImg }
+    { id: 200, name: 'Inspection surprise', img: inspectionImg },
+    { id: 201, name: "Conflit d'équipe", img: conflitImg },
+    { id: 202, name: 'Vol de matériel', img: volImg },
+
+    { id: 203, name: 'Inspection surprise', img: inspectionImg },
+    { id: 204, name: "Conflit d'équipe", img: conflitImg },
+    { id: 205, name: 'Vol de matériel', img: volImg }
   ];
 
   const jokerCards = [
-    { id: 22, name: 'Joker', img: jokerImg },
-    { id: 23, name: 'Joker', img: jokerImg },
-    { id: 24, name: 'Joker', img: jokerImg }
+    { id: 250, name: 'Joker', img: jokerImg },
+    { id: 251, name: 'Joker', img: jokerImg },
+    { id: 252, name: 'Joker', img: jokerImg },
+    { id: 253, name: 'Joker', img: jokerImg },
+    { id: 254, name: 'Joker', img: jokerImg },
+    { id: 255, name: 'Joker', img: jokerImg }
   ];
 
   // Game state
@@ -194,19 +224,20 @@ const GMPGame = () => {
     if (goodPracticesCards.some(c => c.id === card.id)) {
       // Good practice card - can be used to eliminate its corresponding danger card
       const matchingGoodCard = goodPracticesCards.find(c => c.id === card.id);
-      const matchingDangerId = matchingGoodCard?.match;
+      const matchingDangerIds = matchingGoodCard?.match || [];
       
       // Find index of matching danger card in player's hand
-      const dangerIndex = currentPlayer.hand.findIndex(c => c.id === matchingDangerId);
+       const dangerIndex = currentPlayer.hand.findIndex(c => matchingDangerIds.includes(c.id));
 
       if (dangerIndex >= 0) {
         // Eliminate danger and gain +3 points
         const newPlayers = [...players];
+        const eliminatedDangerCard = currentPlayer.hand[dangerIndex];
         newPlayers[currentPlayerIndex].hand.splice(dangerIndex, 1);
         newPlayers[currentPlayerIndex].hand.splice(selectedCard.index, 1);
         newPlayers[currentPlayerIndex].score += 3;
         setPlayers(newPlayers);
-        addToLog(`${currentPlayer.name} a utilisé ${card.name} pour éliminer un danger et a gagné +3 points !`);
+        addToLog(`${currentPlayer.name} a utilisé ${card.name} pour éliminer un danger "${eliminatedDangerCard.name}" et a gagné +3 points !`);
       } else {
         addToLog(`${currentPlayer.name} n'a pas de carte danger à éliminer avec ${card.name}`);
         setSelectedCard(null);
